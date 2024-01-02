@@ -1,28 +1,31 @@
+//ORM:libreria para conexion servidor/db
+//permite interaccion rapida
+//const { Sequelize } = require("sequelize");
+//const { envs } = require("../envirotment/envirotment");
+
 import { Sequelize } from 'sequelize';
-import { envs } from '../enviroment/envoroment.js';
+import { envs } from '../environment/environment.js';
 
 export const sequelize = new Sequelize(envs.DB_URI, {
-  logging: false,
+  logging: false, //reduce el ruido en la terminal no mostrando las consultas sql
 });
 
-export async function authenticate() {
+export const authenticated = async () => {
   try {
-    /* `await sequelize.authenticate()` is a function call that authenticates the connection to the
-database using the Sequelize library. It waits for the authentication process to complete before
-moving on to the next line of code. */
     await sequelize.authenticate();
-
-    console.log('conection has been stablished successfully👍 ');
+    console.log('connection has been established successfully.😃'); //authetica el codigo con la db
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
-}
-
-export async function syncUp() {
+};
+export const syncUp = async () => {
   try {
-    await sequelize.sync();
-    console.log('conection has been synced successfully 😃');
+    //el {force:true} se usa para forzar los cambios en la db, teniendo
+    //en cuenta q en produccion, es necesario hacer antes una migracion,
+    //para no perder los datos
+    await sequelize.sync(); //sincroniza el codigo con la db
+    console.log('connection has been synced successfully.✌');
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
-}
+};

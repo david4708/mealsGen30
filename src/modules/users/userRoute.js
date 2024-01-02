@@ -1,6 +1,13 @@
 import express from 'express';
 
 import userController from './userController.js';
+import {
+  protect,
+  protectAccountOwner,
+  validateExistUser,
+} from './userMiddleware.js';
+import { validateExistOrder } from '../orders/orderMiddleware.js';
+import orderController from '../orders/orderController.js';
 
 export const router = express.Router();
 
@@ -8,12 +15,17 @@ router
 
   .post('/signUp', userController.signUp)
 
-  .post('/login', userController.login)
+  .post('/login', userController.login);
+//protected routes
+router.use(protect);
+router.patch('/change-password', userController.changePassword);
 
-  .get('/', userController.getAllUser);
+router.get('/orders', orderController.findAllOrderSessionUser);
+
+router.get('/orders/:id', validateExistOrder, orderController.findOneOrder);
 
 router
   .route('/:id')
-  .get(userController.getOneUser)
-  .patch(userController.updateUser)
-  .delete(userController.deleteUser);
+
+  .patch(validateExistUser, protectAccountOwner, userController.updateUser)
+  .delete(validateExistUser, protectAccountOwner, userController.deleteUser);

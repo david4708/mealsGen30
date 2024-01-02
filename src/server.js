@@ -1,11 +1,14 @@
 import app from './app.js';
-import { authenticate, syncUp } from './config/database/database.js';
+import { initModel } from './config/database/associations.js';
 
-import { envs } from './config/enviroment/envoroment.js';
+import { authenticated, syncUp } from './config/database/database.js';
+import { envs } from './config/environment/environment.js';
+//import InitModel from './motorcycleRepair/initModel.js';
 
 async function main() {
   try {
-    await authenticate();
+    await authenticated();
+    initModel();
     await syncUp();
   } catch (error) {
     console.log(error);
@@ -14,5 +17,5 @@ async function main() {
 main();
 
 app.listen(envs.PORT, () => {
-  console.log(`server runing on port ${envs.PORT} ✔`);
+  console.log('Server running on port: ' + envs.PORT);
 });
