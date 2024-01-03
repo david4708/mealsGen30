@@ -1,8 +1,3 @@
-//import { AppError } from '../../common/errors/appError.js';
-//import { catchAsync } from '../../common/errors/catchAsync.js';
-//import { restaurantService } from '../restaurants/restaurantService.js';
-//import { mealService } from './mealService.js';
-
 import { AppError } from '../../common/errors/appError.js';
 import { catchAsync } from '../../common/errors/catchAsync.js';
 import { restaurantService } from '../restaurants/restaurantServices.js';
@@ -12,7 +7,7 @@ import { mealService } from './mealService.js';
 export const validateExistMeal = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
-  const meal = await mealService.findOneMeal(id);
+  const meal = await mealService.findOne(id);
 
   if (!meal) {
     return next(

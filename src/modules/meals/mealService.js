@@ -1,17 +1,11 @@
-//import { Restaurant } from '../restaurants/restaurantModel.js';
-//import { Meal } from './mealModel.js';
-
 import { Restaurant } from '../restaurants/restaurantModel.js';
 import { Meal } from './mealModel.js';
 
 export class mealService {
   // function to search for a meal without including the Restaurant model
-  static async findOneMeal(id) {
+  static async findOne(id) {
     return await Meal.findOne({
-      where: { id: id, status: 'active' },
-      /*       include: {
-        model: Restaurant,
-      }, */
+      where: { id, status: 'active' },
     });
   }
 
@@ -21,6 +15,15 @@ export class mealService {
       where: {
         status: 'active',
       },
+      include: {
+        model: Restaurant,
+      },
+    });
+  }
+  // function to search for a meal including the Restaurant model
+  static async findOneMeal(id) {
+    return await Meal.findOne({
+      where: { id, status: 'active' },
       include: {
         model: Restaurant,
       },

@@ -1,7 +1,3 @@
-//import { catchAsync } from '../../common/errors/catchAsync.js';
-//import { validateOrder } from './orderSchema.js';
-//import { OrderService } from './orderService.js';
-
 import { AppError } from '../../common/errors/appError.js';
 import { catchAsync } from '../../common/errors/catchAsync.js';
 import { validateOrder } from './orderSchema.js';

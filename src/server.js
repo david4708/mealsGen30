@@ -1,9 +1,7 @@
 import app from './app.js';
 import { initModel } from './config/database/associations.js';
-
 import { authenticated, syncUp } from './config/database/database.js';
 import { envs } from './config/environment/environment.js';
-//import InitModel from './motorcycleRepair/initModel.js';
 
 async function main() {
   try {

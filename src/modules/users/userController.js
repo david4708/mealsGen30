@@ -1,5 +1,3 @@
-//import userService from './userService.js';
-
 import { AppError } from '../../common/errors/appError.js';
 import { catchAsync } from '../../common/errors/catchAsync.js';
 import {
@@ -7,7 +5,6 @@ import {
   verifyPassword,
 } from '../../config/plugins/encriptedPasswordPlugin.js';
 import { generateJWT } from '../../config/plugins/generatedJWTplugin.js';
-import { OrderService } from '../orders/orderService.js';
 import {
   validateLogin,
   validatePartialUser,

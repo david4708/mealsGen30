@@ -7,14 +7,6 @@ import {
 } from './restaurantSchema.js';
 import { restaurantService } from './restaurantServices.js';
 
-/* import {
-  validatePartialRestaurant,
-  validatePartialReview,
-  validateRestaurant,
-  validateReview,
-} from './restaurantSchema.js'; */
-//import { restaurantService } from './restaurantService.js';
-
 const createRestaurant = catchAsync(async (req, res, next) => {
   const { hasError, errorMessages, restaurantData } = validateRestaurant(
     req.body
@@ -59,9 +51,10 @@ const findAllRestaurant = catchAsync(async (req, res, next) => {
   return res.status(200).json(restaurant);
 });
 const findOneRestaurant = catchAsync(async (req, res, next) => {
-  const { restaurant } = req;
+  const { restaurantId } = req.params;
 
-  return res.status(200).json(restaurant);
+  const getRestaurant = await restaurantService.findOneRestaurant(restaurantId);
+  return res.status(200).json(getRestaurant);
 });
 
 const updateRestaurant = catchAsync(async (req, res, next) => {
@@ -92,9 +85,12 @@ const updateRestaurant = catchAsync(async (req, res, next) => {
 const deleteRestaurant = catchAsync(async (req, res, next) => {
   const { restaurant } = req;
   const { restaurantId } = req.params;
-  await restaurantService.deleteRestaurant(restaurant);
+  const deletedRestaurant = await restaurantService.deleteRestaurant(
+    restaurant
+  );
 
   return res.status(200).json({
+    deletedRestaurant,
     message: `restaurant with id: ${restaurantId} has been inactived successfully!`,
   });
 });

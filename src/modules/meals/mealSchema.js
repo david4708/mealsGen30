@@ -8,7 +8,7 @@ export const MealSchema = z.object({
       required_error: 'name is required',
     })
     .min(3)
-    .max(20),
+    .max(30),
   price: z.number(),
 });
 

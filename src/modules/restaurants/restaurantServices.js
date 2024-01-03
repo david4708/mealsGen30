@@ -1,7 +1,5 @@
-//import User from '../users/userModel.js';
 import { Restaurant } from './restaurantModel.js';
 import { Review } from './reviewModel.js';
-//import { Review } from './reviewModel.js';
 
 export class restaurantService {
   static async findOneRestaurant(id) {
@@ -10,12 +8,27 @@ export class restaurantService {
         status: 'active',
         id,
       },
+      include: {
+        model: Review,
+      },
     });
   }
+  static async findOneRestaurantUpdate(id) {
+    return await Restaurant.findOne({
+      where: {
+        status: 'active',
+        id,
+      },
+    });
+  }
+
   static async findAllRestaurant() {
     return await Restaurant.findAll({
       where: {
         status: 'active',
+      },
+      include: {
+        model: Review,
       },
     });
   }
@@ -37,9 +50,6 @@ export class restaurantService {
         id: id,
         status: 'active',
       },
-      /*       include: {
-        model: User,
-      }, */
     });
   }
 

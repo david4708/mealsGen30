@@ -6,6 +6,11 @@ export class OrderService {
   static async findOneOrder(id) {
     return await Order.findOne({
       where: { id: id, status: 'active' },
+      include: {
+        model: Meal,
+        attributes: ['name', 'price'],
+        include: { model: Restaurant, attributes: ['name'] },
+      },
     });
   }
 

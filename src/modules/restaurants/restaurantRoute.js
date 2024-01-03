@@ -6,11 +6,6 @@ import {
   validateExistReview,
 } from './restaurantMiddleware.js';
 
-/* import {
-  validateExistRestaurant,
-  validateExistReview,
-} from './restaurantMiddleware.js'; */
-
 export const router = express.Router();
 
 //unprotected routes
@@ -18,7 +13,7 @@ export const router = express.Router();
 router.get('/', restaurantController.findAllRestaurant);
 
 router.get(
-  '/:id',
+  '/:restaurantId',
   validateExistRestaurant,
   restaurantController.findOneRestaurant
 );
